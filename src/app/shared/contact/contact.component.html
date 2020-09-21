@@ -1,0 +1,81 @@
+<form [formGroup]="contactForm" novalidate>
+  <div class="card">
+    <div class="card-header">
+      <h1 *ngIf='isEdit'>Edit Contact</h1>
+      <h1 *ngIf='!isEdit'>Add Contact</h1>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="form-group">
+            <input class="form-control" type="text" placeholder="First Name" appNfNoSpaces
+              [(ngModel)]="userData.firstName" formControlName="firstName" maxlength="50" />
+            <div
+              *ngIf="contactForm.controls['firstName'].invalid && (contactForm.controls['firstName'].dirty || contactForm.controls['firstName'].touched)"
+              class="error-msg">
+              <div
+                *ngIf="contactForm.controls['firstName'].errors.required || contactForm.controls['firstName'].errors.whitespace ">
+                First name is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="form-group">
+            <input class="form-control" type="text" placeholder="Last Name" appNfNoSpaces
+              [(ngModel)]="userData.lastName" formControlName="lastName" maxlength="50" />
+            <div
+              *ngIf="contactForm.controls['lastName'].invalid && (contactForm.controls['lastName'].dirty || contactForm.controls['lastName'].touched)"
+              class="error-msg">
+              <div
+                *ngIf="contactForm.controls['lastName'].errors.required || contactForm.controls['lastName'].errors.whitespace">
+                Last name is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="form-group">
+            <input class="form-control" type="email" placeholder="Primary Email" appNfNoSpaces
+              [(ngModel)]="userData.primaryEmail" formControlName="primaryEmail" maxlength="100" />
+            <div
+              *ngIf="contactForm.controls['primaryEmail'].invalid && (contactForm.controls['primaryEmail'].dirty || contactForm.controls['primaryEmail'].touched)"
+              class="error-msg">
+              <div
+                *ngIf="contactForm.controls['primaryEmail'].errors.required || contactForm.controls['primaryEmail'].errors.whitespace ">
+                Primary email is required.
+              </div>
+              <div
+                *ngIf="(contactForm.controls['primaryEmail'].errors.email || contactForm.controls['primaryEmail'].errors.pattern) && !contactForm.controls['primaryEmail'].errors.whitespace">
+                Primary email must be a valid email address.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="form-group has-float-label">
+            <input class="form-control" type="tel" (input)="formatPhoneNumber(contactForm.controls['phoneNumber'])" [textMask]="{mask: mask}"
+              placeholder="phoneNumber" appNfNoSpaces [(ngModel)]="userData.phoneNumber" formControlName="phoneNumber" maxlength="20"
+              inputmode="numeric" digitOnly />
+            <div
+              *ngIf="contactForm.controls['phoneNumber'].invalid && (contactForm.controls['phoneNumber'].dirty || contactForm.controls['phoneNumber'].touched)"
+              class="error-msg">
+              <div
+                *ngIf="contactForm.controls['phoneNumber'].errors.required || contactForm.controls['phoneNumber'].errors.whitespace">
+                Phone number is required.
+              </div>
+              <div
+                *ngIf="(contactForm.controls['phoneNumber'].errors!==null && contactForm.controls['phoneNumber'].errors.isInValidphoneNumber) && (submited || contactForm.controls['phoneNumber'].dirty || contactForm.controls['phoneNumber'].touched)"
+                class="error-msg">
+                Please enter a valid Phone number.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary float-right" (click)="OnFormSubmit()" title="Add Contact">Add Contact</button>
+    </div>
+  </div>
+</form>

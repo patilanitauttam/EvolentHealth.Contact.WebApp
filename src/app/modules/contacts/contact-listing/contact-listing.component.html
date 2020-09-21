@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <div class="card">
+    <div class="card-header">
+      Contacts 
+      <button class="btn btn-primary float-right" (click)="AddContact()">Add Contact</button>      
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" ><span>Name</span></th>
+                    <th scope="col" ><span>Email</span> </th>
+                    <th scope="col" ><span>Phone Number</span> </th>
+                    <th scope="col"><span>Actions</span></th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let contact Of contacts">
+                <td scope="col"><span>{{contact.firstName}} {{contact.lastName}}</span></td>
+                <td scope="col"><span>{{contact.primaryEmail}}</span> </td>
+                <td scope="col"><span>{{contact.phoneNumber}}</span> </td>
+                <td>
+                  <div class="d-flex">
+                    <a 
+                        href="javascript:void(0)"
+                        (click)="RedirectToContact(contact.contactId)">
+                        <i  class="fa fa-pencil" placement="top" ngbTooltip="Edit"></i>
+                    </a>
+                    <a href="javascript:void(0)"
+                    (click)="DeleteContact(contact.contactId)" >
+                    <i class="fa fa-trash-o" aria-hidden="true" placement="top" ngbTooltip="Delete"></i>
+                    </a>
+                </div>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+  </div>
